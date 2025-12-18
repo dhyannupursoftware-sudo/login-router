@@ -1,0 +1,111 @@
+/* GLOBAL */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f2f6ff;
+  color: #333;
+}
+
+/* HEADER */
+header {
+  background: #1e3a8a;
+  padding: 18px 40px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h2 {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: #dbeafe;
+  font-weight: 500;
+}
+nav a:hover {
+  color: white;
+}
+
+.footer {
+  background: black;
+  color: white;
+  text-align: center;
+  padding: 14px 0;
+  font-size: 15px;
+  margin-top: auto;   /* MAGIC — pushes footer to bottom */
+}
+
+/* PAGE CONTAINERS */
+.page {
+  width: 90%;
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 0;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+/* FORM DESIGN */
+form {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+
+button {
+  background: #1e3a8a;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  font-size: 15px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover {
+  background: #153a70;
+}
+
+/* DASHBOARD */
+.dashboard-box {
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* PAGE SHOULD TAKE FULL HEIGHT */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* APP WRAPPER */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
