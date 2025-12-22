@@ -39,7 +39,7 @@ const reducer = (state: TodoType[], action: ActionType): TodoType[] => {
   }
 };
 
-/*  INITIALIZER FUNCTION */
+/*  FUNCTION */
 const init = (): TodoType[] => {
   const saved = localStorage.getItem("todos");
   return saved ? JSON.parse(saved) : [];

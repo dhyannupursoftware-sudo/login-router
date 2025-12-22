@@ -1,15 +1,24 @@
 import { Link, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
-  auth: { token: string | null; role: string | null };
+  auth: {
+    token: string | null;
+    role: string | null;
+  };
+  setAuth: React.Dispatch<
+    React.SetStateAction<{
+      token: string | null;
+      role: string | null;
+    }>
+  >;
 }
 
-export default function Header({ auth }: HeaderProps) {
+export default function Header({ auth, setAuth }: HeaderProps) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem("auth");
-    window.location.reload();
+    setAuth({ token: null, role: null });
     navigate("/login");
   };
 
@@ -18,8 +27,7 @@ export default function Header({ auth }: HeaderProps) {
       <h1 className="text-xl font-bold">My React App</h1>
 
       <nav className="flex gap-4">
-
-        
+        {/* SHOW LOGIN / REGISTER ONLY IF NOT LOGGED IN */}
         {!auth.token && (
           <>
             <Link
@@ -50,7 +58,7 @@ export default function Header({ auth }: HeaderProps) {
           </>
         )}
 
-    
+        {/* SHOW LOGOUT ONLY IF LOGGED IN */}
         {auth.token && (
           <button
             onClick={handleLogout}

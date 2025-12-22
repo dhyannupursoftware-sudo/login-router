@@ -1,5 +1,5 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -15,7 +15,18 @@ interface AuthType {
 }
 
 export default function App() {
-  const [auth, setAuth] = useState<AuthType>({ token: null, role: null });
+  const [auth, setAuth] = useState<AuthType>({
+    token: null,
+    role: null,
+  });
+
+  // 🔥 refresh hone par localStorage se auth load
+  useEffect(() => {
+    const storedAuth = localStorage.getItem("auth");
+    if (storedAuth) {
+      setAuth(JSON.parse(storedAuth));
+    }
+  }, []);
 
   return (
     <Router>
@@ -24,7 +35,22 @@ export default function App() {
       <Routes>
         {/* PUBLIC ROUTES */}
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login setAuth={setAuth} />} />
+
+        <Route
+          path="/login"
+          element={
+            auth.token ? (
+              auth.role === "admin" ? (
+                <Navigate to="/admin" />
+              ) : (
+                <Navigate to="/user" />
+              )
+            ) : (
+              <Login setAuth={setAuth} />
+            )
+          }
+        />
+
         <Route path="/register" element={<Register />} />
 
         {/* USER PROTECTED */}
