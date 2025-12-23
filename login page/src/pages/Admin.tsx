@@ -15,7 +15,13 @@ type ActionType =
 const reducer = (state: TodoType[], action: ActionType): TodoType[] => {
   switch (action.type) {
     case "ADD_TODO":
-      return [...state, { text: action.payload, done: false }];
+      return [
+        ...state,
+        {
+          text: action.payload,
+          done: false,
+        },
+      ];
 
     case "DELETE_TODO":
       return state.filter((_, index) => index !== action.payload);
@@ -29,9 +35,7 @@ const reducer = (state: TodoType[], action: ActionType): TodoType[] => {
 
     case "TOGGLE_DONE":
       return state.map((item, index) =>
-        index === action.payload
-          ? { ...item, done: !item.done }
-          : item
+        index === action.payload ? { ...item, done: !item.done } : item
       );
 
     default:
@@ -39,7 +43,6 @@ const reducer = (state: TodoType[], action: ActionType): TodoType[] => {
   }
 };
 
-/*  FUNCTION */
 const init = (): TodoType[] => {
   const saved = localStorage.getItem("todos");
   return saved ? JSON.parse(saved) : [];
@@ -50,8 +53,8 @@ export default function Todo() {
   const [task, setTask] = useState("");
   const [editIndex, setEditIndex] = useState<number | null>(null);
   const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState<"all" | "pending" | "completed">("all");
 
-  /*  SAVE only after state updates */
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(state));
   }, [state]);
@@ -71,9 +74,15 @@ export default function Todo() {
     setTask("");
   };
 
-  const filtered = state.filter((item) =>
-    item.text.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredTodos = state
+    .filter((item) =>
+      item.text.toLowerCase().includes(search.toLowerCase())
+    )
+    .filter((item) => {
+      if (filter === "pending") return !item.done;
+      if (filter === "completed") return item.done;
+      return true;
+    });
 
   return (
     <div className="todo-container">
@@ -99,8 +108,56 @@ export default function Todo() {
         className="search-input"
       />
 
+      {/* FILTER BUTTONS */}
+      <div className="filter-buttons">
+        <button
+          onClick={() => setFilter("all")}
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            width: "100px",
+            marginLeft: "40px",
+            padding: "10px",
+            marginBottom: "40px",
+          }}
+        >
+          All
+        </button>
+
+        <button
+          onClick={() => setFilter("pending")}
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            width: "100px",
+            marginLeft: "15px",
+            padding: "10px",
+          }}
+        >
+          Pending
+        </button>
+
+        <button
+          onClick={() => setFilter("completed")}
+          style={{
+            backgroundColor: "blue",
+            color: "white",
+            width: "100px",
+            marginLeft: "15px",
+            padding: "10px",
+          }}
+        >
+          Completed
+        </button>
+      </div>
+                 {<h1 style={{ 
+                      textAlign:"center",
+                      backgroundColor:"lightgray",
+                      border:"none",
+                      borderRadius:"10px",
+                 }}>TODO ADDED ITEM</h1>}
       <ul className="todo-list">
-        {filtered.map((item, index) => (
+        {filteredTodos.map((item, index) => (
           <li key={index} className="todo-item">
             <div className="todo-left">
               <input
@@ -110,6 +167,7 @@ export default function Todo() {
                   dispatch({ type: "TOGGLE_DONE", payload: index })
                 }
               />
+              
               <span className="todo-text">{item.text}</span>
             </div>
 

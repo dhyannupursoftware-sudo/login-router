@@ -20,7 +20,7 @@ export default function App() {
     role: null,
   });
 
-  // 🔥 refresh hone par localStorage se auth load
+  //  refresh hone par localStorage se auth load
   useEffect(() => {
     const storedAuth = localStorage.getItem("auth");
     if (storedAuth) {

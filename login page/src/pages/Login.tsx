@@ -20,7 +20,7 @@ export default function Login({ setAuth }: LoginProps) {
         token: "ADMIN_TOKEN",
         role: "admin",
       };
-
+       /* store auth in localstorage */
       localStorage.setItem("auth", JSON.stringify(authData));
       setAuth(authData);
       navigate("/admin");
