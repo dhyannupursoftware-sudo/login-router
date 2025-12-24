@@ -2,6 +2,7 @@ import { useReducer, useState, useEffect } from "react";
 import "./Todo.css";
 
 interface TodoType {
+  id: number;
   text: string;
   done: boolean;
 }
@@ -9,7 +10,7 @@ interface TodoType {
 type ActionType =
   | { type: "ADD_TODO"; payload: string }
   | { type: "DELETE_TODO"; payload: number }
-  | { type: "EDIT_TODO"; payload: { index: number; text: string } }
+  | { type: "EDIT_TODO"; payload: { id: number; text: string } }
   | { type: "TOGGLE_DONE"; payload: number };
 
 const reducer = (state: TodoType[], action: ActionType): TodoType[] => {
@@ -17,25 +18,24 @@ const reducer = (state: TodoType[], action: ActionType): TodoType[] => {
     case "ADD_TODO":
       return [
         ...state,
-        {
-          text: action.payload,
-          done: false,
-        },
+        { id: Date.now() + Math.random(), text: action.payload, done: false },
       ];
 
     case "DELETE_TODO":
-      return state.filter((_, index) => index !== action.payload);
+      return state.filter((item) => item.id !== action.payload);
 
     case "EDIT_TODO":
-      return state.map((item, index) =>
-        index === action.payload.index
+      return state.map((item) =>
+        item.id === action.payload.id
           ? { ...item, text: action.payload.text }
           : item
       );
 
     case "TOGGLE_DONE":
-      return state.map((item, index) =>
-        index === action.payload ? { ...item, done: !item.done } : item
+      return state.map((item) =>
+        item.id === action.payload
+          ? { ...item, done: !item.done }
+          : item
       );
 
     default:
@@ -51,7 +51,7 @@ const init = (): TodoType[] => {
 export default function Todo() {
   const [state, dispatch] = useReducer(reducer, [], init);
   const [task, setTask] = useState("");
-  const [editIndex, setEditIndex] = useState<number | null>(null);
+  const [editId, setEditId] = useState<number | null>(null);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<"all" | "pending" | "completed">("all");
 
@@ -62,12 +62,9 @@ export default function Todo() {
   const submitHandler = () => {
     if (!task.trim()) return;
 
-    if (editIndex !== null) {
-      dispatch({
-        type: "EDIT_TODO",
-        payload: { index: editIndex, text: task },
-      });
-      setEditIndex(null);
+    if (editId !== null) {
+      dispatch({ type: "EDIT_TODO", payload: { id: editId, text: task } });
+      setEditId(null);
     } else {
       dispatch({ type: "ADD_TODO", payload: task });
     }
@@ -91,24 +88,25 @@ export default function Todo() {
       <div className="input-section">
         <input
           type="text"
-          placeholder="Enter your task..."
           value={task}
           onChange={(e) => setTask(e.target.value)}
+          placeholder="Enter task..."
         />
-        <button onClick={submitHandler} className="add-btn">
-          {editIndex !== null ? "Update" : "Add"}
+        <button
+          onClick={submitHandler}
+          style={{ backgroundColor: "#2563eb", height: "50px", marginTop: "5px" }}
+        >
+          {editId ? "Update" : "Add"}
         </button>
       </div>
 
       <input
-        type="text"
-        placeholder="Search task..."
+        className="search-input"
+        placeholder="Search..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="search-input"
       />
 
-      {/* FILTER BUTTONS */}
       <div className="filter-buttons">
         <button
           onClick={() => setFilter("all")}
@@ -116,9 +114,9 @@ export default function Todo() {
             backgroundColor: "blue",
             color: "white",
             width: "100px",
-            marginLeft: "40px",
+            marginLeft: "35px",
             padding: "10px",
-            marginBottom: "40px",
+            marginBottom: "30px",
           }}
         >
           All
@@ -150,44 +148,48 @@ export default function Todo() {
           Completed
         </button>
       </div>
-                 {<h1 style={{ 
-                      textAlign:"center",
-                      backgroundColor:"lightgray",
-                      border:"none",
-                      borderRadius:"10px",
-                 }}>TODO ADDED ITEM</h1>}
+
       <ul className="todo-list">
-        {filteredTodos.map((item, index) => (
-          <li key={index} className="todo-item">
+        {filteredTodos.map((item) => (
+          <li key={item.id} className="todo-item">
             <div className="todo-left">
               <input
                 type="checkbox"
                 checked={item.done}
                 onChange={() =>
-                  dispatch({ type: "TOGGLE_DONE", payload: index })
+                  dispatch({ type: "TOGGLE_DONE", payload: item.id })
                 }
               />
-              
-              <span className="todo-text">{item.text}</span>
+
+             
+              <span
+                className="todo-text"
+                onClick={() =>
+                  dispatch({ type: "TOGGLE_DONE", payload: item.id })
+                }
+                style={{ cursor: "pointer" }}
+              >
+                {item.text}
+              </span>
             </div>
 
             <div className="btn-group">
               <button
-                className="edit-btn"
+                style={{ backgroundColor: "#eab308" }}
                 disabled={item.done}
                 onClick={() => {
                   setTask(item.text);
-                  setEditIndex(index);
+                  setEditId(item.id);
                 }}
               >
                 Edit
               </button>
 
               <button
-                className="delete-btn"
+                style={{ backgroundColor: "#ef4444" }}
                 disabled={item.done}
                 onClick={() =>
-                  dispatch({ type: "DELETE_TODO", payload: index })
+                  dispatch({ type: "DELETE_TODO", payload: item.id })
                 }
               >
                 Delete
