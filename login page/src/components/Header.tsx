@@ -15,7 +15,7 @@ export default function Header({ auth }: HeaderProps) {
 
   return (
     <header className="w-full bg-blue-700 text-white p-4 flex justify-between">
-      <h1 className="text-xl font-bold">My React App</h1>
+      <h1 className="text-xl font-bold"> 🏦 My React App</h1>
 
       <nav className="flex gap-4">
 
@@ -63,7 +63,7 @@ export default function Header({ auth }: HeaderProps) {
               cursor: "pointer",
             }}
           >
-            Logout
+           👉🏻 Logout
           </button>
         )}
       </nav>

@@ -83,7 +83,7 @@ export default function Todo() {
 
   return (
     <div className="todo-container">
-      <h2>Todo List</h2>
+      <h2> 🎯Todo List</h2>
 
       <div className="input-section">
         <input
@@ -161,7 +161,7 @@ export default function Todo() {
                 }
               />
 
-             
+              
               <span
                 className="todo-text"
                 onClick={() =>
@@ -182,7 +182,7 @@ export default function Todo() {
                   setEditId(item.id);
                 }}
               >
-                Edit
+               Edit
               </button>
 
               <button
@@ -192,7 +192,7 @@ export default function Todo() {
                   dispatch({ type: "DELETE_TODO", payload: item.id })
                 }
               >
-                Delete
+               Delete
               </button>
             </div>
           </li>
