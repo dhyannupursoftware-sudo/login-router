@@ -83,7 +83,7 @@ export default function Todo() {
 
   return (
     <div className="todo-container">
-      <h2> 🎯Todo List</h2>
+      <h2> 🎯Todo List🚬</h2>
 
       <div className="input-section">
         <input
