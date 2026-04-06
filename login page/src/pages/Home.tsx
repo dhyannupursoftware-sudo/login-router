@@ -1,7 +1,6 @@
-import { startTransition, useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import ReviewModalForm from "../components/ReviewModalForm";
 import heroImg from "../assets/hero_dashboard.png";
 import taskCreationImg from "../assets/task_creation.png";
 import taskManagementImg from "../assets/task_management.png";
@@ -16,7 +15,6 @@ import personalReadingImg from "../assets/personal_reading.png";
 import eduScheduleImg from "../assets/edu_schedule.png";
 import eduExamImg from "../assets/edu_exam.png";
 import { useSeo } from "../hooks/useSeo";
-import { fetchReviews, type StoredReview } from "../lib/reviews";
 import "../todoist.css";
 
 const features = [
@@ -80,45 +78,6 @@ const integrations = [
   { icon: "bi bi-palette-fill", label: "Figma" },
 ];
 
-const getReviewerInitials = (name: string) =>
-  name
-    .trim()
-    .split(/\s+/)
-    .slice(0, 2)
-    .map((part) => part[0]?.toUpperCase() ?? "")
-    .join("") || "YR";
-
-const formatReviewDate = (value: string) => {
-  const parsed = new Date(value);
-  if (Number.isNaN(parsed.getTime())) return "Recently";
-
-  return new Intl.DateTimeFormat("en-IN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  }).format(parsed);
-};
-
-type HelpfulVote = "yes" | "no";
-type HelpfulMessageTone = "positive" | "neutral";
-type HelpfulVoteState = {
-  count: number;
-  vote?: HelpfulVote;
-  messageTone?: HelpfulMessageTone;
-  messageText?: string;
-};
-
-const sortReviewsByNewest = (items: StoredReview[]) =>
-  [...items].sort(
-    (left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime()
-  );
-
-const buildReviewKey = (review: StoredReview) =>
-  `${review.id ?? review.email}-${review.createdAt}`;
-
-const formatReviewCount = (value: number) =>
-  `${new Intl.NumberFormat("en-IN").format(value)} ${value === 1 ? "review" : "reviews"}`;
-
 export default function Home() {
   useSeo({
     title: "Home",
@@ -127,15 +86,7 @@ export default function Home() {
     path: "/",
   });
 
-  const [reviews, setReviews] = useState<StoredReview[]>([]);
-  const [reviewsLoading, setReviewsLoading] = useState(true);
-  const [reviewsError, setReviewsError] = useState("");
-  const [showAllReviews, setShowAllReviews] = useState(false);
-  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
   const [activeTemplateTab, setActiveTemplateTab] = useState("Work");
-  const [animateMeters, setAnimateMeters] = useState(false);
-  const [helpfulVotes, setHelpfulVotes] = useState<Record<string, HelpfulVoteState>>({});
-  const helpfulMessageTimers = useRef<Record<string, number>>({});
 
   const templateTabs = ["Work", "Personal", "Education", "Management", "Marketing & Sales", "Customer Support"];
 
@@ -338,133 +289,6 @@ export default function Home() {
   };
 
   const templatesData = allTemplatesData[activeTemplateTab] || allTemplatesData.Work;
-
-  useEffect(() => {
-    let isActive = true;
-
-    const loadReviews = async () => {
-      setReviewsLoading(true);
-      setReviewsError("");
-
-      try {
-        const loadedReviews = await fetchReviews();
-        if (!isActive) return;
-
-        startTransition(() => {
-          setReviews(loadedReviews);
-        });
-      } catch {
-        if (!isActive) return;
-        setReviewsError("Reviews are not loading right now, but you can still add your own review.");
-      } finally {
-        if (isActive) {
-          setReviewsLoading(false);
-        }
-      }
-    };
-
-    void loadReviews();
-
-    return () => {
-      isActive = false;
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      Object.values(helpfulMessageTimers.current).forEach((timerId) => {
-        window.clearTimeout(timerId);
-      });
-    };
-  }, []);
-
-  const totalReviews = reviews.length;
-  const averageRating = totalReviews
-    ? reviews.reduce((sum, review) => sum + review.rating, 0) / totalReviews
-    : 0;
-  const ratingBreakdown = [5, 4, 3, 2, 1].map((rating) => {
-    const count = reviews.filter((review) => review.rating === rating).length;
-
-    return {
-      rating,
-      count,
-      percentage: totalReviews ? Math.round((count / totalReviews) * 100) : 0,
-    };
-  });
-  const visibleReviews = showAllReviews ? reviews : reviews.slice(0, 3);
-
-  useEffect(() => {
-    setAnimateMeters(false);
-
-    const meterTimer = window.setTimeout(() => {
-      setAnimateMeters(true);
-    }, 120);
-
-    return () => {
-      window.clearTimeout(meterTimer);
-    };
-  }, [totalReviews]);
-
-  const handleReviewSubmitted = (review: StoredReview) => {
-    startTransition(() => {
-      setReviews((current) => {
-        const next = current.filter((item) => item.email !== review.email);
-        return sortReviewsByNewest([review, ...next]);
-      });
-    });
-  };
-
-  const handleHelpfulVote = (reviewKey: string, vote: HelpfulVote) => {
-    const existingTimer = helpfulMessageTimers.current[reviewKey];
-    if (existingTimer) {
-      window.clearTimeout(existingTimer);
-    }
-
-    setHelpfulVotes((current) => {
-      const previous = current[reviewKey] ?? { count: 0 };
-      let nextCount = previous.count;
-
-      if (vote === "yes" && previous.vote !== "yes") {
-        nextCount += 1;
-      }
-
-      if (vote === "no" && previous.vote === "yes") {
-        nextCount = Math.max(0, nextCount - 1);
-      }
-
-      return {
-        ...current,
-        [reviewKey]: {
-          count: nextCount,
-          vote,
-          messageTone: vote === "yes" ? "positive" : "neutral",
-          messageText:
-            vote === "yes"
-              ? "Thanks. Your vote helps highlight useful reviews."
-              : "Thanks. We will keep making the review area clearer.",
-        },
-      };
-    });
-
-    helpfulMessageTimers.current[reviewKey] = window.setTimeout(() => {
-      setHelpfulVotes((current) => {
-        const previous = current[reviewKey];
-        if (!previous) return current;
-
-        return {
-          ...current,
-          [reviewKey]: {
-            ...previous,
-            messageTone: undefined,
-            messageText: undefined,
-          },
-        };
-      });
-
-      delete helpfulMessageTimers.current[reviewKey];
-    }, 5000);
-  };
-
   return (
     <div className="todoist-page-wrap">
       <section className="td-feature-split" style={{ paddingTop: "80px", paddingBottom: "60px" }}>

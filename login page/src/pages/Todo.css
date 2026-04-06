@@ -12841,6 +12841,11 @@ body.reduced-motion .todo-page .todo-completed-archive-card {
 .todo-page .todo-settings-card--danger {
   border-color: rgba(255, 119, 119, 0.16);
   background: linear-gradient(180deg, rgba(34, 17, 20, 0.95), rgba(23, 11, 14, 0.94));
+  padding-bottom: 26px;
+}
+
+.todo-page .todo-settings-card--danger .todo-settings-danger-btn {
+  margin-top: 8px;
 }
 
 .todo-page .todo-settings-control-grid {
@@ -14826,4 +14831,14 @@ body.todo-scroll-lock {
   .todo-page .premium-action-btn {
     min-height: 42px;
   }
+}
+
+.todo-page .todo-settings-card.todo-settings-card--danger {
+  padding-bottom: 42px !important;
+}
+
+.todo-page .todo-settings-card.todo-settings-card--danger .todo-settings-danger-btn.todo-settings-btn-block {
+  width: calc(100% - 12px);
+  justify-self: center;
+  margin-top: 14px !important;
 }

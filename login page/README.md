@@ -69,6 +69,17 @@ The auth pages now use Google Identity Services.
 
 Replace `https://your-domain.com` with your real deployed domain before release.
 
+## Deployment
+
+This app is designed to work with a separately deployed Laravel API.
+
+- Frontend: deploy this Vite app from the `login page` directory
+- Backend: deploy Laravel on its own host / service
+- Frontend env: set `VITE_API_BASE_URL` to your Laravel production URL
+- SPA routing: `vercel.json` is included for Vercel deployments
+
+Full deployment steps are in [DEPLOYMENT.md](./DEPLOYMENT.md).
+
 ## Contact endpoint
 
 The contact form posts to both:
