@@ -43,6 +43,41 @@ export default defineConfig([
 ])
 ```
 
+## Project setup
+
+1. Copy `.env.example` to `.env`.
+2. Set `VITE_API_BASE_URL` to your backend URL.
+3. Set `VITE_SITE_URL` to your production domain.
+4. Add `VITE_GA_MEASUREMENT_ID` if Google Analytics is required.
+5. Add `VITE_GOOGLE_CLIENT_ID` to enable Google sign-in on `/login` and `/register`.
+6. Optionally set `VITE_GOOGLE_AUTH_ENDPOINT` if your backend exchanges the Google credential for an app token.
+7. Update social profile URLs via `VITE_SOCIAL_*` values.
+
+## Google sign-in
+
+The auth pages now use Google Identity Services.
+
+- Set `VITE_GOOGLE_CLIENT_ID` from your Google Cloud OAuth web app.
+- Add your local/dev and production origins in Google Cloud Authorized JavaScript origins.
+- If you want backend-issued tokens, point `VITE_GOOGLE_AUTH_ENDPOINT` to your credential exchange endpoint. The frontend posts `{ credential, intent, clientId }`.
+- If `VITE_GOOGLE_AUTH_ENDPOINT` is omitted, the app still signs users in locally with the Google credential and hydrates `app-profile`.
+
+## SEO files
+
+- `public/robots.txt`
+- `public/sitemap.xml`
+
+Replace `https://your-domain.com` with your real deployed domain before release.
+
+## Contact endpoint
+
+The contact form posts to both:
+
+- `POST /api/contact` for email/contact workflow
+- `POST /api/feedbacks` for in-app feedback storage
+
+If `/api/contact` is unavailable, feedback still saves through `/api/feedbacks`.
+
 You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
 ```js

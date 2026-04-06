@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="980" viewBox="0 0 1600 980" fill="none" role="img" aria-label="Product preview illustration">
+  <defs>
+    <linearGradient id="bg" x1="80" y1="70" x2="1490" y2="900" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1f6bff"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.97"/>
+      <stop offset="1" stop-color="#dce8ff" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="980" fill="url(#bg)"/>
+  <circle cx="1280" cy="110" r="190" fill="#ffffff" fill-opacity="0.14"/>
+  <circle cx="240" cy="900" r="210" fill="#ffffff" fill-opacity="0.08"/>
+
+  <rect x="140" y="120" width="1320" height="740" rx="42" fill="#071b4d" fill-opacity="0.34" stroke="#c1d5ff" stroke-opacity="0.34" stroke-width="2"/>
+  <rect x="210" y="190" width="320" height="600" rx="24" fill="url(#panel)"/>
+  <rect x="560" y="190" width="830" height="390" rx="24" fill="url(#panel)"/>
+  <rect x="560" y="610" width="830" height="180" rx="24" fill="url(#panel)"/>
+
+  <rect x="246" y="240" width="248" height="40" rx="20" fill="#1f6bff"/>
+  <text x="370" y="266" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="17" font-weight="700" fill="#ffffff">Projects</text>
+
+  <rect x="246" y="318" width="150" height="32" rx="16" fill="#e7efff" stroke="#bfd2fb"/>
+  <rect x="246" y="366" width="248" height="16" rx="8" fill="#9db4e8"/>
+  <rect x="246" y="396" width="218" height="12" rx="6" fill="#b0c3ee"/>
+  <rect x="246" y="430" width="248" height="16" rx="8" fill="#9db4e8"/>
+  <rect x="246" y="460" width="188" height="12" rx="6" fill="#b0c3ee"/>
+  <rect x="246" y="494" width="248" height="16" rx="8" fill="#9db4e8"/>
+  <rect x="246" y="524" width="205" height="12" rx="6" fill="#b0c3ee"/>
+
+  <rect x="602" y="242" width="280" height="36" rx="18" fill="#1f6bff"/>
+  <text x="742" y="266" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Execution Overview</text>
+
+  <rect x="602" y="316" width="744" height="18" rx="9" fill="#7d9be0"/>
+  <rect x="602" y="346" width="640" height="12" rx="6" fill="#a8beec"/>
+
+  <rect x="602" y="392" width="226" height="152" rx="16" fill="#eef4ff" stroke="#c2d4fa"/>
+  <rect x="848" y="392" width="226" height="152" rx="16" fill="#eef4ff" stroke="#c2d4fa"/>
+  <rect x="1094" y="392" width="252" height="152" rx="16" fill="#eef4ff" stroke="#c2d4fa"/>
+
+  <rect x="648" y="438" width="130" height="12" rx="6" fill="#7f9cdf"/>
+  <rect x="648" y="462" width="92" height="10" rx="5" fill="#a8beec"/>
+
+  <rect x="894" y="438" width="130" height="12" rx="6" fill="#7f9cdf"/>
+  <rect x="894" y="462" width="92" height="10" rx="5" fill="#a8beec"/>
+
+  <path d="M1138 500L1186 454L1230 482L1284 432" stroke="#1f6bff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="1138" cy="500" r="7" fill="#1f6bff"/>
+  <circle cx="1186" cy="454" r="7" fill="#1f6bff"/>
+  <circle cx="1230" cy="482" r="7" fill="#1f6bff"/>
+  <circle cx="1284" cy="432" r="7" fill="#1f6bff"/>
+
+  <rect x="602" y="654" width="744" height="16" rx="8" fill="#7d9be0"/>
+  <rect x="602" y="682" width="676" height="12" rx="6" fill="#a8beec"/>
+  <rect x="602" y="706" width="704" height="12" rx="6" fill="#a8beec"/>
+</svg>

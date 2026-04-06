@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" fill="none" role="img" aria-label="Team module visual">
+  <defs>
+    <linearGradient id="bg" x1="60" y1="40" x2="840" y2="520" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1d4ed8"/>
+      <stop offset="1" stop-color="#4f46e5"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="560" rx="28" fill="url(#bg)"/>
+  <circle cx="760" cy="98" r="66" fill="#ffffff" fill-opacity="0.12"/>
+  <rect x="98" y="92" width="704" height="372" rx="24" fill="#0c1e4c" fill-opacity="0.34" stroke="#c0d5ff" stroke-opacity="0.5"/>
+  <rect x="146" y="138" width="176" height="34" rx="17" fill="#ffffff" fill-opacity="0.94"/>
+  <rect x="146" y="204" width="610" height="14" rx="7" fill="#c6d8ff"/>
+  <rect x="146" y="232" width="540" height="12" rx="6" fill="#d6e4ff"/>
+  <circle cx="198" cy="322" r="36" fill="#eef4ff" stroke="#c3d6ff"/>
+  <circle cx="324" cy="322" r="36" fill="#eef4ff" stroke="#c3d6ff"/>
+  <circle cx="450" cy="322" r="36" fill="#eef4ff" stroke="#c3d6ff"/>
+  <rect x="520" y="288" width="236" height="70" rx="12" fill="#eef4ff" stroke="#c3d6ff"/>
+  <rect x="550" y="312" width="164" height="10" rx="5" fill="#88a7ed"/>
+</svg>

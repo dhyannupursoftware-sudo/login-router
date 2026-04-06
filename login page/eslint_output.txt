@@ -1,0 +1,68 @@
+﻿
+C:\login-router\login page\src\components\DetailedContactForm.tsx
+  18:14  error  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  react-refresh/only-export-components
+
+C:\login-router\login page\src\components\ReviewModalForm.tsx
+  125:14  error  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+C:\login-router\login page\src\components\todo\PremiumBoardView.tsx
+  71:22  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\login-router\login page\src\components\todo\PremiumBoardView.tsx:71:22
+  69 |     if (t.done || !t.dueAt) return false;
+  70 |     const dueTime = new Date(t.dueAt).getTime();
+> 71 |     return dueTime < Date.now();
+     |                      ^^^^^^^^^^ Cannot call impure function
+  72 |   }).length;
+  73 |   
+  74 |   const completedCount = tasks.filter(t => t.done).length;                                                                                                                                                                                                                                                 react-hooks/purity
+  76:96  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\login-router\login page\src\components\todo\PremiumBoardView.tsx:76:96
+  74 |   const completedCount = tasks.filter(t => t.done).length;
+  75 |   const productivity = Math.round((completedCount / (tasks.length || 1)) * 100);
+> 76 |   const upcomingCount = tasks.filter(t => !t.done && t.dueAt && new Date(t.dueAt).getTime() >= Date.now()).length;
+     |                                                                                                ^^^^^^^^^^ Cannot call impure function
+  77 |
+  78 |   const filteredTasks = tasks.filter(t => 
+  79 |     t.title.toLowerCase().includes(searchQuery.toLowerCase()) ||   react-hooks/purity
+  94:50  error  Error: Cannot call impure function during render
+
+`Date.now` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+C:\login-router\login page\src\components\todo\PremiumBoardView.tsx:94:50
+  92 |   const getTaskStatus = (t: Todo) => {
+  93 |     if (t.done) return "completed";
+> 94 |     if (t.dueAt && new Date(t.dueAt).getTime() < Date.now()) return "overdue";
+     |                                                  ^^^^^^^^^^ Cannot call impure function
+  95 |     return "active";
+  96 |   };
+  97 |                                                                                                                                                                                                                                        react-hooks/purity
+
+C:\login-router\login page\src\components\todo\TodoWorkspace.tsx
+     1:1   error  Do not use "@ts-nocheck" because it alters compilation errors  @typescript-eslint/ban-ts-comment
+  2246:9   error  'boardWeekRangeLabel' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  2259:9   error  'selectedBoardDateLabel' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  2261:9   error  'boardTodayLabel' is assigned a value but never used           @typescript-eslint/no-unused-vars
+  2357:9   error  'boardCompletionPct' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  2361:9   error  'boardPriorityRingStyle' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  2378:9   error  'boardFocusProgress' is assigned a value but never used        @typescript-eslint/no-unused-vars
+  2466:9   error  'boardFocusActivityFeed' is assigned a value but never used    @typescript-eslint/no-unused-vars
+  3344:9   error  'renderBoardTableRow' is assigned a value but never used       @typescript-eslint/no-unused-vars
+  4281:56  error  Redundant Boolean call                                         no-extra-boolean-cast
+  4282:65  error  Redundant Boolean call                                         no-extra-boolean-cast
+  4398:84  error  Redundant Boolean call                                         no-extra-boolean-cast
+  4411:85  error  Redundant Boolean call                                         no-extra-boolean-cast
+  4486:40  error  Redundant Boolean call                                         no-extra-boolean-cast
+  4504:40  error  Redundant Boolean call                                         no-extra-boolean-cast
+
+C:\login-router\login page\src\pages\Home.tsx
+  118:42  error  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+Γ£û 21 problems (21 errors, 0 warnings)
+  6 errors and 0 warnings potentially fixable with the `--fix` option.
+

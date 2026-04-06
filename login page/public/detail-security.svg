@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="560" viewBox="0 0 900 560" fill="none" role="img" aria-label="Security module visual">
+  <defs>
+    <linearGradient id="bg" x1="54" y1="48" x2="850" y2="524" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1e40af"/>
+      <stop offset="1" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="900" height="560" rx="28" fill="url(#bg)"/>
+  <rect x="94" y="88" width="712" height="384" rx="24" fill="#081b4a" fill-opacity="0.36" stroke="#bfd3ff" stroke-opacity="0.5"/>
+  <rect x="144" y="134" width="212" height="34" rx="17" fill="#ffffff" fill-opacity="0.94"/>
+  <path d="M450 210L596 262V324C596 385 552 431 450 464C348 431 304 385 304 324V262L450 210Z" fill="#eef4ff" stroke="#c2d5ff" stroke-width="2"/>
+  <rect x="420" y="304" width="60" height="72" rx="12" fill="#7ea0eb"/>
+  <path d="M430 304V286C430 275 438 266 450 266C462 266 470 275 470 286V304" stroke="#eef4ff" stroke-width="8" stroke-linecap="round"/>
+  <rect x="146" y="406" width="246" height="14" rx="7" fill="#c5d8ff"/>
+  <rect x="506" y="406" width="246" height="14" rx="7" fill="#c5d8ff"/>
+</svg>
