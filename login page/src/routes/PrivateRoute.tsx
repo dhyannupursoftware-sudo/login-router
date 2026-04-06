@@ -1,19 +1,22 @@
 import { Navigate } from "react-router-dom";
-import type { ReactNode } from "react";
+import React from "react";
+import { hasValidToken, readSavedAuth, type AuthState } from "../lib/auth";
 
-interface AuthType {
-  token: string | null;
-  role: "admin" | "user" | null;
-}
+export default function PrivateRoute({
+  children,
+  auth,
+}: {
+  children: React.ReactNode;
+  auth?: AuthState;
+}) {
+  if (hasValidToken(auth?.token)) {
+    return <>{children}</>;
+  }
 
-interface PrivateProps {
-  auth: AuthType;
-  role: "admin" | "user";
-  children: ReactNode;
-}
+  const storedAuth = readSavedAuth();
+  if (hasValidToken(storedAuth.token)) {
+    return <>{children}</>;
+  }
 
-export default function PrivateRoute({ auth, role, children }: PrivateProps) {
-  if (!auth.token) return <Navigate to="/login" replace />;
-  if (auth.role !== role) return <Navigate to="/login" replace />;
-  return <>{children}</>;
+  return <Navigate to="/login" replace />;
 }
