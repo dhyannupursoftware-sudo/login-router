@@ -108,10 +108,10 @@ export default function DetailedContactForm() {
   };
 
   return (
-    <div style={{ maxWidth: "1250px", margin: "0 auto", background: "var(--td-surface)", borderRadius: "24px", overflow: "hidden", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 450px), 1fr))", border: "1px solid var(--td-border)", boxShadow: "var(--td-shadow)", alignItems: "stretch" }}>
+    <div className="td-contact-form-wrapper" style={{ maxWidth: "1250px", margin: "0 auto", background: "var(--td-surface)", borderRadius: "24px", overflow: "hidden", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 450px), 1fr))", border: "1px solid var(--td-border)", boxShadow: "var(--td-shadow)", alignItems: "stretch" }}>
       
       {/* Left Side: Contact Information Cards */}
-      <div style={{ padding: "50px 40px", background: "var(--td-surface-soft)", display: "flex", flexDirection: "column", gap: "20px", borderRight: "1px solid var(--td-border)" }}>
+      <div className="td-contact-info-panel" style={{ background: "var(--td-surface-soft)", display: "flex", flexDirection: "column", gap: "20px" }}>
         <h3 style={{ fontSize: "1.6rem", fontWeight: "800", color: "var(--td-text)", marginBottom: "10px" }}>Contact Information</h3>
         <p style={{ color: "var(--td-muted)", fontSize: "1.05rem", marginBottom: "20px", lineHeight: "1.5" }}>Fill out the form and our team will get back to you within 24 hours.</p>
 
@@ -161,7 +161,7 @@ export default function DetailedContactForm() {
       </div>
 
       {/* Right Side: Form */}
-      <div style={{ padding: "50px 40px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+      <div className="td-contact-form-panel" style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
         <h2 style={{ fontSize: "2rem", color: "var(--td-text)", marginBottom: "30px", fontWeight: "800", letterSpacing: "-0.02em" }}>Send us a message</h2>
         
         <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "20px" }}>

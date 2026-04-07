@@ -721,3 +721,28 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
+
+/* Contact Form Responsive Styling */
+.td-contact-info-panel {
+  padding: 50px 40px;
+  border-right: 1px solid var(--td-border);
+}
+.td-contact-form-panel {
+  padding: 50px 40px;
+}
+
+@media (max-width: 900px) {
+  .td-contact-info-panel, .td-contact-form-panel {
+    padding: 30px 20px;
+  }
+  .td-contact-info-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--td-border);
+  }
+}
+
+@media (max-width: 480px) {
+  .td-contact-info-panel, .td-contact-form-panel {
+    padding: 20px 15px;
+  }
+}
