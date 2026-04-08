@@ -463,47 +463,49 @@ export default function AskQuestion() {
   };
 
   return (
-    <div className="todoist-center-card faq-chat-page">
-      <section className="wa-chat-shell" aria-label="WhatsApp style chat">
-        <header className="wa-chat-top">
-          <div className="wa-chat-profile">
-            <span className="wa-chat-avatar">AI</span>
-            <div>
+    <div className="faq-chat-page">
+      <section className="ai-chat-shell" aria-label="AI Assistant Chat">
+        <header className="ai-chat-header">
+          <div className="ai-chat-profile">
+            <span className="ai-chat-avatar">
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </span>
+            <div className="ai-chat-header-info">
               <h1>FAQ Assistant</h1>
-              <p>Online | chat auto-saved in local storage</p>
+              <p>Always ready to help you</p>
             </div>
           </div>
 
-          <div className="wa-chat-top-actions">
-            <Link to="/faq" className="wa-chat-back">
+          <div className="ai-chat-actions">
+            <Link to="/faq" className="ai-btn-ghost">
               Back to FAQ
             </Link>
-            <div className="wa-menu-wrap" ref={menuRef}>
+            <div className="ai-menu-wrap" ref={menuRef}>
               <button
                 type="button"
-                className="wa-menu-btn"
+                className="ai-btn-ghost"
                 aria-label="Open chat options"
                 onClick={() => setMenuOpen((prev) => !prev)}
               >
-                <span />
-                <span />
-                <span />
+                Options
               </button>
               {menuOpen && (
-                <div className="wa-menu-popover" role="menu">
-                  <button type="button" className="wa-menu-item" onClick={clearConversation}>
+                <div className="ai-menu-popover" role="menu">
+                  <button type="button" className="ai-menu-item" onClick={clearConversation}>
                     Clear Chat
                   </button>
-                  <button type="button" className="wa-menu-item" onClick={startFreshChat}>
+                  <button type="button" className="ai-menu-item" onClick={startFreshChat}>
                     Start New Chat
                   </button>
-                  <button type="button" className="wa-menu-item" onClick={copyLastBotReply}>
+                  <button type="button" className="ai-menu-item" onClick={copyLastBotReply}>
                     Copy Last Reply
                   </button>
-                  <button type="button" className="wa-menu-item" onClick={exportConversation}>
+                  <button type="button" className="ai-menu-item" onClick={exportConversation}>
                     Export Chat
                   </button>
-                  <button type="button" className="wa-menu-item" onClick={scrollToLatest}>
+                  <button type="button" className="ai-menu-item" onClick={scrollToLatest}>
                     Scroll to Latest
                   </button>
                 </div>
@@ -512,31 +514,33 @@ export default function AskQuestion() {
           </div>
         </header>
 
-        <div className="wa-chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
+        <div className="ai-chat-body" role="log" aria-live="polite" ref={chatBodyRef}>
           {chatMessages.map((msg) => (
-            <article key={msg.id} className={`wa-msg ${msg.role === "user" ? "is-user" : "is-bot"}`}>
-              {msg.attachment ? (
-                <div className="wa-attachment">
-                  {msg.attachment.isImage ? (
-                    <img
-                      src={msg.attachment.dataUrl}
-                      alt={msg.attachment.name}
-                      className="wa-attachment-image"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <a
-                      href={msg.attachment.dataUrl}
-                      download={msg.attachment.name}
-                      className="wa-attachment-file"
-                    >
-                      <strong>{msg.attachment.name}</strong>
-                      <span>{formatSize(msg.attachment.size)}</span>
-                    </a>
-                  )}
-                </div>
-              ) : null}
-              {msg.text ? <p>{msg.text}</p> : null}
+            <article key={msg.id} className={`ai-msg ${msg.role === "user" ? "is-user" : "is-bot"}`}>
+              <div className="ai-msg-bubble">
+                {msg.attachment ? (
+                  <div className="ai-attachment">
+                    {msg.attachment.isImage ? (
+                      <img
+                        src={msg.attachment.dataUrl}
+                        alt={msg.attachment.name}
+                        className="ai-attachment-image"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <a
+                        href={msg.attachment.dataUrl}
+                        download={msg.attachment.name}
+                        className="ai-attachment-file"
+                      >
+                        <strong>{msg.attachment.name}</strong>
+                        <span>{formatSize(msg.attachment.size)}</span>
+                      </a>
+                    )}
+                  </div>
+                ) : null}
+                {msg.text ? <p>{msg.text}</p> : null}
+              </div>
               <time dateTime={new Date(msg.createdAt).toISOString()}>
                 {timeFormatter.format(msg.createdAt)}
               </time>
@@ -544,53 +548,61 @@ export default function AskQuestion() {
           ))}
         </div>
 
-        <div className="wa-quick-row">
+        <div className="ai-quick-prompts">
           {quickPrompts.map((prompt) => (
-            <button key={prompt} type="button" className="wa-chip" onClick={() => submitQuestion(prompt)}>
+            <button key={prompt} type="button" className="ai-chip" onClick={() => submitQuestion(prompt)}>
               {prompt}
             </button>
           ))}
         </div>
 
-        {inputError ? <p className="todoist-error wa-input-error">{inputError}</p> : null}
-        {chatNotice ? <p className="wa-notice">{chatNotice}</p> : null}
+        {inputError ? <p className="todoist-error ai-input-error">{inputError}</p> : null}
+        {chatNotice ? <p className="ai-notice">{chatNotice}</p> : null}
 
-        <form className="wa-chat-form" onSubmit={handleChatSubmit}>
-          <button
-            type="button"
-            className="wa-attach-btn"
-            aria-label="Attach image or file"
-            onClick={handleAttachClick}
-            disabled={isAttaching}
-            title="Attach file"
-          >
-            {isAttaching ? "..." : "+"}
-          </button>
-          <input
-            ref={fileInputRef}
-            type="file"
-            className="wa-file-input"
-            onChange={handleFileChange}
-            accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.rar"
-          />
-          <input
-            type="text"
-            className="todoist-input wa-chat-input"
-            value={chatInput}
-            onChange={(e) => {
-              setChatInput(e.target.value);
-              if (inputError) setInputError("");
-              if (chatNotice) setChatNotice("");
-            }}
-            maxLength={MAX_QUESTION_LENGTH + 80}
-            placeholder={isAttaching ? "Processing attachment..." : "Type a message..."}
-            aria-label="Ask chat bot"
-            disabled={isAttaching}
-          />
-          <button type="submit" className="wa-send-btn" disabled={isAttaching}>
-            Send
-          </button>
-        </form>
+        <footer className="ai-chat-footer">
+          <form className="ai-chat-form" onSubmit={handleChatSubmit}>
+            <button
+              type="button"
+              className="ai-attach-btn"
+              aria-label="Attach image or file"
+              onClick={handleAttachClick}
+              disabled={isAttaching}
+              title="Attach file"
+            >
+              {isAttaching ? "..." : (
+                <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
+                </svg>
+              )}
+            </button>
+            <input
+              ref={fileInputRef}
+              type="file"
+              className="ai-file-input"
+              onChange={handleFileChange}
+              accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.zip,.rar"
+            />
+            <input
+              type="text"
+              className="ai-chat-input"
+              value={chatInput}
+              onChange={(e) => {
+                setChatInput(e.target.value);
+                if (inputError) setInputError("");
+                if (chatNotice) setChatNotice("");
+              }}
+              maxLength={MAX_QUESTION_LENGTH + 80}
+              placeholder={isAttaching ? "Processing attachment..." : "Ask me anything..."}
+              aria-label="Ask chat bot"
+              disabled={isAttaching}
+            />
+            <button type="submit" className="ai-send-btn" disabled={isAttaching}>
+              <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </button>
+          </form>
+        </footer>
       </section>
     </div>
   );
