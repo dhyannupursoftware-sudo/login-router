@@ -19,7 +19,7 @@ const socialLinks = [
     tone: "facebook",
   },
   {
-    href: env.VITE_SOCIAL_INSTAGRAM_URL || "https://instagram.com",
+    href: env.VITE_SOCIAL_INSTAGRAM_URL || "https://www.instagram.com/__dhkk__?igsh=dnY2eXVudGh4aDRo",
     label: "Instagram",
     icon: "bi bi-instagram",
     tone: "instagram",
@@ -31,7 +31,7 @@ const socialLinks = [
     tone: "twitter",
   },
   {
-    href: env.VITE_SOCIAL_GITHUB_URL || "https://github.com",
+    href: env.VITE_SOCIAL_GITHUB_URL || "https://github.com/dhyannupursoftware-sudo",
     label: "GitHub",
     icon: "bi bi-github",
     tone: "github",
